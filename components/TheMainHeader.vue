@@ -188,7 +188,9 @@ const components: { title: string; href: string; description: string }[] = [
       </NavigationMenuList>
     </NavigationMenu>
 
-    <div>button</div>
+    <div>
+      <DarkMode />
+    </div>
   </div>
 </template>
 

@@ -2,7 +2,23 @@
 export default defineNuxtConfig({
   compatibilityDate: "2024-04-03",
   devtools: { enabled: true },
-  modules: ["@nuxtjs/tailwindcss", "shadcn-nuxt", "@nuxt/image-edge"],
+  modules: [
+    "@nuxtjs/tailwindcss",
+    "shadcn-nuxt",
+    "@nuxt/image-edge",
+    "@nuxtjs/color-mode",
+  ],
+  colorMode: {
+    preference: "system",
+    fallback: "light",
+    hid: "nuxt-color-mode-script",
+    globalName: "__NUXT_COLOR_MODE__",
+    componentName: "ColorScheme",
+    classPrefix: "",
+    classSuffix: "",
+    storage: "localStorage",
+    storageKey: "nuxt-color-mode",
+  },
   image: {
     format: ["webp"],
   },
@@ -21,5 +37,9 @@ export default defineNuxtConfig({
   },
   app: {
     pageTransition: { name: "page", mode: "out-in" },
+  },
+  server: {
+    port: 4000,
+    host: "0,0,0,0,",
   },
 });
