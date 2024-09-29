@@ -217,7 +217,7 @@
             <CarouselItem
               v-for="(work, index) in sampleWorks"
               :key="index"
-              class="flex flex-row justify-center w-1/4 lg:basis-1/4 rtl:space-x-reverse"
+              class="flex flex-row justify-center w-1/4 lg:basis-1/3 rtl:space-x-reverse"
             >
               <div class="p-1">
                 <Card dir="rtl">
@@ -243,66 +243,198 @@
         </Carousel>
       </div>
     </section>
+
+    <section
+      class="container flex flex-col md:flex-row items-center justify-between p-6 gap-8"
+    >
+      <!-- Left Column -->
+      <div class="md:w-1/2 mt-4 md:mt-0">
+        <NuxtImg
+          format="webp"
+          width="630"
+          height="530"
+          src="/images/monitor.png"
+          class="w-full h-auto shadow-md"
+        />
+      </div>
+      <div class="md:w-1/2">
+        <h2 class="text-2xl font-bold mb-4">درباره بانی وب</h2>
+        <p class="mb-2 text-gray-600">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium
+          assumenda, voluptas placeat magnam quia officiis esse. Ipsam aliquid
+          corporis aliquam? Quas iure, expedita quo tempore placeat eius aliquid
+          quae quisquam!
+        </p>
+        <p class="mb-2 text-gray-600">
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto
+          impedit sed dolor autem dolores nemo ducimus adipisci cumque ea dicta,
+          illum a, ab corrupti? Vitae autem iste dolores deleniti fuga.
+        </p>
+        <p class="mb-4 text-gray-600">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid
+          inventore doloribus amet accusantium enim blanditiis magni officiis
+          itaque, reprehenderit corrupti esse culpa beatae explicabo ipsam
+          recusandae vel. Fuga, eos quisquam?
+        </p>
+        <a href="#" class="flex items-center text-blue-600 hover:text-blue-800">
+          مشاهده بیشتر
+          <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              d="M10 0C4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10S15.52 0 10 0zm1 15H9v-2h2v2zm0-4H9V5h2v6z"
+            />
+          </svg>
+        </a>
+      </div>
+    </section>
+    # Customer Testimonials
+
+    <section class="bg-section-custom">
+      <div class="container">
+        <div class="text-center text-gray-600 text-lg/[18px]">
+          از زبان مشتریان
+        </div>
+        <div class="text-center text-[30px] font-bold">
+          مشتریان بانی وب چه میگویند؟
+        </div>
+      </div>
+      <Carousel
+        :opts="{
+          align: 'center',
+          loop: true,
+        }"
+        :plugins="[
+          Autoplay({
+            delay: 2000,
+          }),
+        ]"
+      >
+        <CarouselContent class="-ml-4" dir="ltr">
+          <CarouselItem class="pl-4 lg:basis-2/4">
+            <Card>
+              <CardContent dir="rtl" class="flex flex-col items-center">
+                <NuxtImg
+                  format="webp"
+                  src="/images/Ellipse-305.png"
+                  class="-mt-[15px]"
+                />
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Placeat libero aliquam soluta laborum odio maxime explicabo,
+                  quos consequatur, alias officia tenetur assumenda veniam
+                  adipisci nulla labore quidem magnam qui atque.
+                </p>
+                <h3 class="text-left">محمد عمرانی</h3>
+                <span class="text-left">شرکت کشاورزان</span>
+              </CardContent>
+            </Card>
+          </CarouselItem>
+          <CarouselItem class="pl-4 lg:basis-2/4">
+            <Card>
+              <CardContent dir="rtl" class="flex flex-col items-center">
+                <NuxtImg format="webp" src="/images/Ellipse-305.png" />
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Placeat libero aliquam soluta laborum odio maxime explicabo,
+                  quos consequatur, alias officia tenetur assumenda veniam
+                  adipisci nulla labore quidem magnam qui atque.
+                </p>
+                <h3 class="text-right">محمد عمرانی</h3>
+                <span class="text-right">شرکت کشاورزان</span>
+              </CardContent>
+            </Card>
+          </CarouselItem>
+          <CarouselItem class="pl-4 lg:basis-2/4">
+            <Card>
+              <CardContent dir="rtl" class="flex flex-col items-center">
+                <NuxtImg format="webp" src="/images/Ellipse-305.png" />
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Placeat libero aliquam soluta laborum odio maxime explicabo,
+                  quos consequatur, alias officia tenetur assumenda veniam
+                  adipisci nulla labore quidem magnam qui atque.
+                </p>
+                <h3 class="text-left">محمد عمرانی</h3>
+                <span class="text-left">شرکت کشاورزان</span>
+              </CardContent>
+            </Card>
+          </CarouselItem>
+        </CarouselContent>
+      </Carousel>
+    </section>
   </div>
 </template>
 
 <script setup lang="ts">
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-import { Card, CardContent } from "@/components/ui/card";
+import Autoplay from 'embla-carousel-autoplay';
+
 const sampleWorks = ref([
   {
-    image: "/images/Rectangle9437.png",
-    title: "پروژه اول",
-    description: "این یک پروژه نرم افزاری موفق است که به خوبی انجام شده است",
-    link: "/sample-work/1",
+    image: '/images/Rectangle9437.png',
+    title: 'پروژه اول',
+    description: 'این یک پروژه نرم افزاری موفق است که به خوبی انجام شده است',
+    link: '/sample-work/1',
   },
   {
-    image: "/images/Rectangle9437.png",
-    title: "پروژه دوم",
-    description: "این یک پروژه نرم افزاری موفق است که به خوبی انجام شده است",
-    link: "/sample-work/1",
+    image: '/images/Rectangle9437.png',
+    title: 'پروژه دوم',
+    description: 'این یک پروژه نرم افزاری موفق است که به خوبی انجام شده است',
+    link: '/sample-work/1',
   },
   {
-    image: "/images/Rectangle9437.png",
-    title: "پروژه سوم",
-    description: "این یک پروژه نرم افزاری موفق است که به خوبی انجام شده است",
-    link: "/sample-work/1",
+    image: '/images/Rectangle9437.png',
+    title: 'پروژه سوم',
+    description: 'این یک پروژه نرم افزاری موفق است که به خوبی انجام شده است',
+    link: '/sample-work/1',
   },
   {
-    image: "/images/Rectangle9437.png",
-    title: "پروژه 4",
-    description: "این یک پروژه نرم افزاری موفق است که به خوبی انجام شده است",
-    link: "/sample-work/1",
+    image: '/images/Rectangle9437.png',
+    title: 'پروژه 4',
+    description: 'این یک پروژه نرم افزاری موفق است که به خوبی انجام شده است',
+    link: '/sample-work/1',
   },
   {
-    image: "/images/Rectangle9437.png",
-    title: "پروژه 5",
-    description: "این یک پروژه نرم افزاری موفق است که به خوبی انجام شده است",
-    link: "/sample-work/1",
+    image: '/images/Rectangle9437.png',
+    title: 'پروژه 5',
+    description: 'این یک پروژه نرم افزاری موفق است که به خوبی انجام شده است',
+    link: '/sample-work/1',
   },
   {
-    image: "/images/Rectangle9437.png",
-    title: "پروژه 6",
-    description: "این پروژه در زمان مشخص به پایان رسید و نتایج خوبی داشت",
-    link: "/sample-work/2",
+    image: '/images/Rectangle9437.png',
+    title: 'پروژه 6',
+    description: 'این پروژه در زمان مشخص به پایان رسید و نتایج خوبی داشت',
+    link: '/sample-work/2',
   },
-  // Add more sample works as needed
+  {
+    image: '/images/Rectangle9437.png',
+    title: 'پروژه 7',
+    description: 'این پروژه در زمان مشخص به پایان رسید و نتایج خوبی داشت',
+    link: '/sample-work/2',
+  },
+  {
+    image: '/images/Rectangle9437.png',
+    title: 'پروژه 8',
+    description: 'این پروژه در زمان مشخص به پایان رسید و نتایج خوبی داشت',
+    link: '/sample-work/2',
+  },
+  {
+    image: '/images/Rectangle9437.png',
+    title: 'پروژه 9',
+    description: 'این پروژه در زمان مشخص به پایان رسید و نتایج خوبی داشت',
+    link: '/sample-work/2',
+  },
 ]);
 </script>
 <style>
 .hero-section {
   margin-top: -88px;
-  background-image: url("~/public/images/bg.png");
+  background-image: url('~/public/images/bg.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   height: 700px;
   color: white;
+}
+.bg-section-custom {
+  background-color: #f6f7fc;
 }
 </style>
