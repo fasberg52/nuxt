@@ -1,45 +1,45 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  compatibilityDate: "2024-04-03",
+  compatibilityDate: '2024-04-03',
   devtools: { enabled: true },
   modules: [
-    "@nuxtjs/tailwindcss",
-    "shadcn-nuxt",
-    "@nuxt/image-edge",
-    "@nuxtjs/color-mode",
+    '@nuxtjs/tailwindcss',
+    'shadcn-nuxt',
+    '@nuxt/image-edge',
+    '@nuxtjs/color-mode',
   ],
   colorMode: {
-    preference: "system",
-    fallback: "light",
-    hid: "nuxt-color-mode-script",
-    globalName: "__NUXT_COLOR_MODE__",
-    componentName: "ColorScheme",
-    classPrefix: "",
-    classSuffix: "",
-    storage: "localStorage",
-    storageKey: "nuxt-color-mode",
+    preference: 'system',
+    fallback: 'light',
+    hid: 'nuxt-color-mode-script',
+    globalName: '__NUXT_COLOR_MODE__',
+    componentName: 'ColorScheme',
+    classPrefix: '',
+    classSuffix: '',
+    storage: 'localStorage',
+    storageKey: 'nuxt-color-mode',
   },
   image: {
-    format: ["webp"],
+    format: ['webp'],
   },
-  css: ["@/assets/css/tailwind.css"],
+  css: ['@/assets/css/tailwind.css'],
   pages: true,
   shadcn: {
     /**
      * Prefix for all the imported component
      */
-    prefix: "",
+    prefix: '',
     /**
      * Directory that the component lives in.
      * @default "./components/ui"
      */
-    componentDir: "./components/ui",
+    componentDir: './components/ui',
   },
   app: {
-    pageTransition: { name: "page", mode: "out-in" },
+    pageTransition: { name: 'slide', mode: 'out-in' },
   },
   server: {
     port: 4000,
-    host: "0,0,0,0,",
+    host: '0.0.0.0',
   },
 });

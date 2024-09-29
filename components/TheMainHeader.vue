@@ -7,43 +7,43 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
+} from '@/components/ui/navigation-menu';
 
 const components: { title: string; href: string; description: string }[] = [
   {
-    title: "Alert Dialog",
-    href: "/docs/primitives/alert-dialog",
+    title: 'Alert Dialog',
+    href: '/docs/primitives/alert-dialog',
     description:
-      "A modal dialog that interrupts the user with important content and expects a response.",
+      'A modal dialog that interrupts the user with important content and expects a response.',
   },
   {
-    title: "Hover Card",
-    href: "/docs/primitives/hover-card",
+    title: 'Hover Card',
+    href: '/docs/primitives/hover-card',
     description:
-      "For sighted users to preview content available behind a link.",
+      'For sighted users to preview content available behind a link.',
   },
   {
-    title: "Progress",
-    href: "/docs/primitives/progress",
+    title: 'Progress',
+    href: '/docs/primitives/progress',
     description:
-      "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
+      'Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.',
   },
   {
-    title: "Scroll-area",
-    href: "/docs/primitives/scroll-area",
-    description: "Visually or semantically separates content.",
+    title: 'Scroll-area',
+    href: '/docs/primitives/scroll-area',
+    description: 'Visually or semantically separates content.',
   },
   {
-    title: "Tabs",
-    href: "/docs/primitives/tabs",
+    title: 'Tabs',
+    href: '/docs/primitives/tabs',
     description:
-      "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
+      'A set of layered sections of content—known as tab panels—that are displayed one at a time.',
   },
   {
-    title: "Tooltip",
-    href: "/docs/primitives/tooltip",
+    title: 'Tooltip',
+    href: '/docs/primitives/tooltip',
     description:
-      "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
+      'A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.',
   },
 ];
 </script>
@@ -56,12 +56,9 @@ const components: { title: string; href: string; description: string }[] = [
     <NavigationMenu dir="rtl">
       <NavigationMenuList class="font-iranyekan">
         <NavigationMenuItem>
-          <NavigationMenuLink
-            href="/docs"
-            :class="navigationMenuTriggerStyle()"
-          >
+          <NuxtLink href="/" :class="navigationMenuTriggerStyle()">
             خانه
-          </NavigationMenuLink>
+          </NuxtLink>
         </NavigationMenuItem>
 
         <NavigationMenuItem>
@@ -90,8 +87,8 @@ const components: { title: string; href: string; description: string }[] = [
               </li>
               <li>
                 <NavigationMenuLink as-child>
-                  <a
-                    href="/docs"
+                  <NuxtLink
+                    href="/sample-works"
                     class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                   >
                     <div class="text-sm font-medium leading-none">خدمات ما</div>
@@ -101,7 +98,7 @@ const components: { title: string; href: string; description: string }[] = [
                       Re-usable components built using Radix UI and Tailwind
                       CSS.
                     </p>
-                  </a>
+                  </NuxtLink>
                 </NavigationMenuLink>
               </li>
               <li>
@@ -195,21 +192,21 @@ const components: { title: string; href: string; description: string }[] = [
 </template>
 
 <style scoped>
-[dir="rtl"] .dropdown-content {
+[dir='rtl'] .dropdown-content {
   text-align: right;
   right: 0;
   left: auto;
 }
 
-[dir="rtl"] .dropdown-content ul {
+[dir='rtl'] .dropdown-content ul {
   padding-right: 1rem;
 }
 
-[dir="rtl"] .dropdown-content a {
+[dir='rtl'] .dropdown-content a {
   direction: rtl;
 }
 
-[dir="rtl"] .navigation-menu-trigger {
+[dir='rtl'] .navigation-menu-trigger {
   margin-left: auto;
   margin-right: 0;
 }

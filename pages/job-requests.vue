@@ -55,19 +55,19 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import { useFetch } from "#app";
-import type { Job } from "~/interfaces/jobOpportunity.interface";
-import { JobOpportunityStatusEnum } from "~/enums/jobOpportunity.enum";
-import { formatSalartyPersian } from "~/global/scripts/format-number";
+import { ref } from 'vue';
+import type { Job } from '../interfaces/jobOpportunity.interface';
+import { JobOpportunityStatusEnum } from '../enums/jobOpportunity.enum';
+import { formatSalartyPersian } from '../global/scripts/format-number';
+import { useFetch } from 'nuxt/app';
 
 const jobRequests = ref<Job[]>([]);
 const isLoading = ref(true);
 const error = ref<Error | null>(null);
 
 const { data: result, error: fetchError } = await useFetch(
-  "http://localhost:3001/api/job-opportunity",
-  { server: true }
+  'http://localhost:3001/api/job-opportunity',
+  { server: true },
 );
 interface JobOpportunityResponse {
   success: boolean;
@@ -80,7 +80,7 @@ if (result.value) {
     jobRequests.value = typedResult.result;
     isLoading.value = false;
   } else {
-    error.value = new Error("Unexpected response structure");
+    error.value = new Error('Unexpected response structure');
     isLoading.value = false;
   }
 } else if (fetchError.value) {
@@ -90,26 +90,26 @@ if (result.value) {
 
 const formatDate = (dateString: string) => {
   const options: Intl.DateTimeFormatOptions = {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
   };
   return new Date(dateString).toLocaleDateString(undefined, options);
 };
 
 const getStatusClass = (status: string) => {
   if (status === JobOpportunityStatusEnum.NOTACTIVE) {
-    return "bg-red-100 text-red-700";
+    return 'bg-red-100 text-red-700';
   }
-  return "bg-green-100 text-green-700 text-center rounded-xl mt-2";
+  return 'bg-green-100 text-green-700 text-center rounded-xl mt-2';
 };
 
 function getTranslatedStatus(status: JobOpportunityStatusEnum): string {
   const translations = {
-    [JobOpportunityStatusEnum.ACTIVE]: "فعال",
-    [JobOpportunityStatusEnum.NOTACTIVE]: "غیر فعال",
+    [JobOpportunityStatusEnum.ACTIVE]: 'فعال',
+    [JobOpportunityStatusEnum.NOTACTIVE]: 'غیر فعال',
   };
   return translations[status];
 }

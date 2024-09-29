@@ -211,13 +211,15 @@
           class="relative w-full"
           :opts="{
             align: 'start',
+            direction: 'rtl',
+            dragFree: true,
           }"
         >
-          <CarouselContent class="-ml-1" dir="ltr">
+          <CarouselContent class="-ml-1">
             <CarouselItem
               v-for="(work, index) in sampleWorks"
               :key="index"
-              class="flex flex-row justify-center w-1/4 lg:basis-1/3 rtl:space-x-reverse"
+              class="flex flex-row justify-center w-1/4 lg:basis-1/4 rtl:space-x-reverse"
             >
               <div class="p-1">
                 <Card dir="rtl">
@@ -286,14 +288,18 @@
         </a>
       </div>
     </section>
-    # Customer Testimonials
 
-    <section class="bg-section-custom">
-      <div class="container">
-        <div class="text-center text-gray-600 text-lg/[18px]">
+    <section class="bg-section-custom py-20">
+      <NuxtImg
+        format="webp"
+        src="/images/chat 1.svg"
+        class="absolute right-10"
+      />
+      <div class="container mx-auto">
+        <div class="text-center text-gray-600 text-lg/[18px] mb-2">
           از زبان مشتریان
         </div>
-        <div class="text-center text-[30px] font-bold">
+        <div class="text-center text-[30px] font-bold mb-10">
           مشتریان بانی وب چه میگویند؟
         </div>
       </div>
@@ -301,23 +307,24 @@
         :opts="{
           align: 'center',
           loop: true,
+          direction: 'rtl',
         }"
         :plugins="[
           Autoplay({
-            delay: 2000,
+            delay: 8000,
           }),
         ]"
       >
-        <CarouselContent class="-ml-4" dir="ltr">
-          <CarouselItem class="pl-4 lg:basis-2/4">
-            <Card>
+        <CarouselContent class="gap-10">
+          <CarouselItem class="lg:basis-2/4 flex justify-center">
+            <Card class="p-6 w-[781px] h-[250px] shadow-lg rounded-lg">
               <CardContent dir="rtl" class="flex flex-col items-center">
                 <NuxtImg
                   format="webp"
+                  width="60"
                   src="/images/Ellipse-305.png"
-                  class="-mt-[15px]"
                 />
-                <p>
+                <p class="w-[85%] text-justify">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Placeat libero aliquam soluta laborum odio maxime explicabo,
                   quos consequatur, alias officia tenetur assumenda veniam
@@ -328,26 +335,36 @@
               </CardContent>
             </Card>
           </CarouselItem>
-          <CarouselItem class="pl-4 lg:basis-2/4">
-            <Card>
+          <CarouselItem class="lg:basis-2/4 flex justify-center">
+            <Card class="p-6 w-[781px] h-[250px] shadow-lg rounded-lg">
               <CardContent dir="rtl" class="flex flex-col items-center">
-                <NuxtImg format="webp" src="/images/Ellipse-305.png" />
-                <p>
+                <NuxtImg
+                  format="webp"
+                  width="60"
+                  src="/images/Ellipse-305.png"
+                />
+                <p class="w-[85%] text-justify">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Placeat libero aliquam soluta laborum odio maxime explicabo,
                   quos consequatur, alias officia tenetur assumenda veniam
                   adipisci nulla labore quidem magnam qui atque.
                 </p>
-                <h3 class="text-right">محمد عمرانی</h3>
-                <span class="text-right">شرکت کشاورزان</span>
+                <h3 class="text-left">محمد عمرانی</h3>
+                <span class="text-left">شرکت کشاورزان</span>
               </CardContent>
             </Card>
           </CarouselItem>
-          <CarouselItem class="pl-4 lg:basis-2/4">
-            <Card>
-              <CardContent dir="rtl" class="flex flex-col items-center">
-                <NuxtImg format="webp" src="/images/Ellipse-305.png" />
-                <p>
+          <CarouselItem
+            class="lg:basis-2/4 flex flex-col justify-center items-center"
+          >
+            <Card class="p-6 w-[781px] h-[250px] shadow-lg rounded-lg">
+              <CardContent dir="rtl" class="flex flex-col items-center p-0">
+                <NuxtImg
+                  format="webp"
+                  width="60"
+                  src="/images/Ellipse-305.png"
+                />
+                <p class="w-[85%] text-justify">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Placeat libero aliquam soluta laborum odio maxime explicabo,
                   quos consequatur, alias officia tenetur assumenda veniam
@@ -359,6 +376,12 @@
             </Card>
           </CarouselItem>
         </CarouselContent>
+        <CarouselPrevious
+          class="absolute lg:left-[27%] w-[72px] h-[72px] border-none shadow-xl shadow-orange-200 text-orange-500"
+        />
+        <CarouselNext
+          class="absolute lg:right-[27%] w-[72px] h-[72px] border-none shadow-xl shadow-orange-200 text-orange-500"
+        />
       </Carousel>
     </section>
   </div>
@@ -366,6 +389,7 @@
 
 <script setup lang="ts">
 import Autoplay from 'embla-carousel-autoplay';
+import { ref } from 'vue';
 
 const sampleWorks = ref([
   {
@@ -436,5 +460,18 @@ const sampleWorks = ref([
 }
 .bg-section-custom {
   background-color: #f6f7fc;
+}
+
+.navigation-right-custom {
+  position: absolute !important;
+  right: 23%;
+  width: 72px;
+  height: 72px;
+  box-shadow:
+    0,
+    7px,
+    0,
+    19px rgba(208, 55, 0, 0.2) !important;
+  border: none;
 }
 </style>

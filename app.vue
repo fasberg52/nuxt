@@ -1,8 +1,11 @@
 <template>
   <div dir="rtl">
     <NuxtRouteAnnouncer />
+
     <NuxtLayout>
-      <NuxtPage />
+      <transition name="page" mode="out-in">
+        <NuxtPage />
+      </transition>
     </NuxtLayout>
   </div>
 </template>
@@ -10,11 +13,16 @@
 <style>
 .page-enter-active,
 .page-leave-active {
-  transition: all 0.4s;
+  transition: opacity 0.5s ease;
 }
+
 .page-enter-from,
 .page-leave-to {
   opacity: 0;
-  filter: blur(1rem);
+}
+
+.page-enter-to,
+.page-leave-from {
+  opacity: 1;
 }
 </style>
