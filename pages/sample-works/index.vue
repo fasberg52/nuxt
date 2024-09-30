@@ -96,12 +96,8 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'; // Import ShadCN Tabs components
-import { Skeleton } from '@/components/ui/skeleton'; // Import ShadCN Skeleton component
-import SampleWorkCard from '~/components/clinet/SampleWorkCard.vue';
-import type { ExampleWork } from '~/interfaces/example-work.interface';
-import { useSampleWorks } from '~/composable/SampleWorks';
-
+import {useSampleWorks} from '../../composable/useSampleWorks';
+import {ExampleWork} from '../../interfaces/example-work.interface';
 const { sampleWorks, fetchSampleWorks, loading } = useSampleWorks(); // Include loading state from composable
 const searchQuery = ref<string>('');
 const activeTab = ref<string>('فروشگاهی'); // Default active tab
