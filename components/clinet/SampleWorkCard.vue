@@ -15,7 +15,7 @@
       <p class="text-gray-600 mb-4">{{ description }}</p>
     </CardContent>
     <CardFooter class="p-0">
-      <Button class="bg-orange-500 text-white px-4 py-2 rounded-md">                 
+      <Button class="bg-orange-500 text-white px-4 py-2 rounded-md">
         مشاهده کارها
       </Button>
     </CardFooter>

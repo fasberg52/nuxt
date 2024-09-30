@@ -24,45 +24,45 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import { useFetch } from "#app";
-import DataTable from "~/components/job-request/DataTable.vue";
-import { formatSalartyPersian } from "~/global/scripts/format-number";
-import { getTranslatedStatus } from "~/global/scripts/status-helper";
-import type { Column } from "~/components/job-request/columns";
-import type { Job } from "~/interfaces/jobOpportunity.interface";
+import { ref } from 'vue';
+import { useFetch } from '#app';
+import DataTable from '~/components/job-request/DataTable.vue';
+import { formatSalartyPersian } from '~/global/scripts/format-number';
+import { getTranslatedStatus } from '~/global/scripts/status-helper';
+import type { Column } from '~/components/job-request/columns';
+import type { Job } from '~/interfaces/jobOpportunity.interface';
 
 const jobRequests = ref<Job[]>([]);
 const isLoading = ref(true);
 const error = ref<Error | null>(null);
 
 const columns: Column[] = [
-  { label: "#", key: "id" },
-  { label: "عنوان", key: "title" },
+  { label: '#', key: 'id' },
+  { label: 'عنوان', key: 'title' },
   {
-    label: "وضعیت",
-    key: "status",
+    label: 'وضعیت',
+    key: 'status',
     render: (row) => getTranslatedStatus(row.status),
   },
-  { label: "تایپ کار", key: "workType" },
-  { label: "نوع کار", key: "workModel" },
+  { label: 'تایپ کار', key: 'workType' },
+  { label: 'نوع کار', key: 'workModel' },
   {
-    label: "میانگین حقوق",
-    key: "salary",
+    label: 'میانگین حقوق',
+    key: 'salary',
     render: (row) => formatSalartyPersian(row.salary),
   },
-  { label: "دسته بندی", key: "category.name" },
+  { label: 'دسته بندی', key: 'category.name' },
   {
-    label: "عملیات",
-    key: "actions",
+    label: 'عملیات',
+    key: 'actions',
     isDropdown: true,
     dropdownOptions: [
       {
-        label: "View",
+        label: 'View',
         action: (row) => viewJob(row.id),
       },
       {
-        label: "Edit",
+        label: 'Edit',
         action: (row) => editJob(row.id),
       },
     ],
@@ -70,8 +70,8 @@ const columns: Column[] = [
 ];
 
 const { data: result, error: fetchError } = await useFetch(
-  "http://localhost:3001/api/job-opportunity",
-  { server: true, credentials: "include" }
+  'http://localhost:3001/api/job-opportunity',
+  { server: true, credentials: 'include' },
 );
 interface JobOpportunityResponse {
   success: boolean;
@@ -84,7 +84,7 @@ if (result.value) {
     jobRequests.value = typedResult.result;
     isLoading.value = false;
   } else {
-    error.value = new Error("Unexpected response structure");
+    error.value = new Error('Unexpected response structure');
     isLoading.value = false;
   }
 } else if (fetchError.value) {
