@@ -1,5 +1,5 @@
 <template>
-  <div class="font-iranyekan">
+  <div>
     <section class="hero-section h-screen flex flex-row items-center flex-wrap">
       <div class="container">
         <div class="size-6/12">

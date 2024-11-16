@@ -1,6 +1,5 @@
 <template>
   <section class="font-iranyekan">
-    <!-- Header Section -->
     <div class="bg-blue-600 py-10 text-white text-center">
       <h1 class="text-2xl font-bold">نمونه کارها</h1>
       <p class="text-sm mt-2">
@@ -17,7 +16,6 @@
       </div>
     </div>
 
-    <!-- ShadCN Tabs Section -->
     <Tabs
       :value="activeTab"
       @update:value="changeTab"
@@ -42,7 +40,7 @@
         </TabsTrigger>
       </TabsList>
 
-      <TabsContent value="فروشگاهی">
+      <TabsContent v-for="tab in tabs" :key="tab" :value="tab">
         <div
           class="container mx-auto px-4 grid grid-cols-4 mobile:grid-cols-2 laptop:grid-cols-4 gap-6"
         >
@@ -58,24 +56,16 @@
             <Skeleton class="w-1/2 h-4 rounded" />
           </div>
 
-          <!-- Display data once loaded -->
-          <SampleWorkCard
+          <ProjectCard
             v-else
-            v-for="work in filteredWorks"
-            :key="work.id"
-            :id="work.id"
-            :image="work.image"
-            :title="work.title"
-            :description="work.description"
-            :url="work.url"
+            v-for="project in filteredProjects"
+            :key="project.id"
+            :id="project.id"
+            :thumbnail="project.thumbnail"
+            :title="project.title"
+            :description="project.description"
           />
         </div>
-      </TabsContent>
-      <TabsContent value="معرفی">
-        <!-- Add logic for 'معرفی' tab content here -->
-      </TabsContent>
-      <TabsContent value="ویدیو ها">
-        <!-- Add logic for 'ویدیو ها' tab content here -->
       </TabsContent>
     </Tabs>
 
@@ -95,31 +85,50 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue';
-import {useSampleWorks} from '../../composable/useSampleWorks';
-import {ExampleWork} from '../../interfaces/example-work.interface';
-const { sampleWorks, fetchSampleWorks, loading } = useSampleWorks(); // Include loading state from composable
+import { ref, computed, onMounted, watch } from 'vue';
+import type { IProject } from '~/interfaces/project.interface';
+import { useProjects } from '~/composable/project.composable';
+import SampleWorkCard from '~/components/clinet/ProjectCard.vue';
+import ProjectCard from '~/components/clinet/ProjectCard.vue';
+
+const { projects, fetchProjects, loading } = useProjects();
 const searchQuery = ref<string>('');
-const activeTab = ref<string>('فروشگاهی'); // Default active tab
+const activeTab = ref<string>('نمونه کارها');
 const currentPage = ref<number>(1);
 const itemsPerPage = 8;
-const tabs = ['فروشگاهی', 'معرفی', 'ویدیو ها']; // Tab labels
+const tabs = ['نمونه کارها', 'قالب آماده', 'طرح آماده'];
 
-onMounted(fetchSampleWorks);
+onMounted(fetchProjects);
 
-// Explicitly type filteredWorks as an array of ExampleWork
-const filteredWorks = computed<ExampleWork[]>(() => {
-  return sampleWorks.value
-    .filter((work: ExampleWork) => work.title.includes(searchQuery.value))
-    .slice(
-      (currentPage.value - 1) * itemsPerPage,
-      currentPage.value * itemsPerPage,
-    );
-});
+const filteredProjects = ref<IProject[]>([]);
+
+watch(
+  [activeTab, projects, searchQuery, currentPage],
+  () => {
+    const filtered = projects.value
+      .filter((project: IProject) => {
+        if (activeTab.value === 'نمونه کارها') {
+          return project.categories && project.categories[0] === 'نمونه کارها';
+        } else if (activeTab.value === 'قالب آماده') {
+          return project.categories &&project.categories[0] === 'قالب آماده';
+        } else if (activeTab.value === 'طرح آماده') {
+          return project.categories && project.categories[0] === 'طرح آماده';
+        }
+        return project.title.includes(searchQuery.value);
+      })
+      .slice(
+        (currentPage.value - 1) * itemsPerPage,
+        currentPage.value * itemsPerPage,
+      );
+
+    filteredProjects.value = filtered;
+  },
+  { immediate: true },
+);
 
 function changeTab(tab: string) {
   activeTab.value = tab;
-  currentPage.value = 1; // Reset to first page when switching tabs
+  currentPage.value = 1;
 }
 
 function changePage(page: number) {
@@ -127,10 +136,8 @@ function changePage(page: number) {
 }
 
 const paginationPages = computed(() => {
-  return Math.ceil(sampleWorks.value.length / itemsPerPage);
+  return Math.ceil(projects.value.length / itemsPerPage);
 });
 </script>
 
-<style scoped>
-/* Add any custom styles here */
-</style>
+<style scoped></style>

@@ -5,7 +5,7 @@
     <CardHeader class="p-0 mb-4">
       <NuxtImg
         format="webp"
-        :src="image"
+        :src="thumbnail"
         class="w-full h-40 object-cover rounded-md"
         alt="Sample work image"
       />
@@ -31,7 +31,7 @@ import {
   CardFooter,
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import type { ExampleWork } from '~/interfaces/example-work.interface';
+import type { IProject } from '~/interfaces/project.interface';
 
-defineProps<ExampleWork>();
+defineProps<IProject>();
 </script>

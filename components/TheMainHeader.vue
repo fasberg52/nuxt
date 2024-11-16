@@ -51,7 +51,7 @@ const components: { title: string; href: string; description: string }[] = [
 <template>
   <div class="flex justify-between items-center p-6 size-6/12">
     <div>
-      <NuxtImg format="webp" src="/images/logo.png" />
+      <NuxtImg format="webp" width="120" src="/images/logo.png" />
     </div>
     <NavigationMenu dir="rtl">
       <NavigationMenuList class="font-iranyekan">

@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Iranyekan';
+  src: url('./fonts/iranyekanwebextrabold.9346e9a2.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Iranyekan';
+  src: url('./fonts/iranyekanwebmedium.2d4f96e5.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Iranyekan';
+  src: url('./fonts//iranyekanwebregular.e31c09af.woff2') format('woff2');
+  font-weight: 200;
+  font-style: normal;
+}
+
+body {
+  font-family: 'Iranyekan';
+  direction: rtl;
+}
