@@ -3,11 +3,17 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
   devtools: { enabled: true },
   plugins: [],
+  runtimeConfig: {
+    public: {
+      apiUrl: 'http://localhost:3014/api',
+    },
+  },
   modules: [
     '@nuxtjs/tailwindcss',
     'shadcn-nuxt',
     '@nuxt/image-edge',
     '@nuxtjs/color-mode',
+    '@pinia/nuxt',
   ],
   colorMode: {
     preference: 'system',
