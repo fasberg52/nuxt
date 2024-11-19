@@ -8,6 +8,9 @@ export default defineNuxtConfig({
       apiUrl: 'http://localhost:3014/api',
     },
   },
+  typescript: {
+    shim: false,
+  },
   modules: [
     '@nuxtjs/tailwindcss',
     'shadcn-nuxt',
@@ -31,10 +34,8 @@ export default defineNuxtConfig({
   },
   css: ['@/assets/css/tailwind.css', '@/assets/css/main.css'],
   pages: true,
+
   shadcn: {
-    /**
-     * Prefix for all the imported component
-     */
     prefix: '',
     /**
      * Directory that the component lives in.
@@ -44,9 +45,5 @@ export default defineNuxtConfig({
   },
   app: {
     pageTransition: { name: 'slide', mode: 'out-in' },
-  },
-  server: {
-    port: 4000,
-    host: '0.0.0.0',
   },
 });

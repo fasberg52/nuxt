@@ -6,6 +6,7 @@
       <transition name="page" mode="out-in">
         <NuxtPage />
       </transition>
+      <Toaster />
     </NuxtLayout>
   </div>
 </template>
@@ -26,3 +27,7 @@
   opacity: 1;
 }
 </style>
+
+<script setup lasng="ts">
+import Toaster from '@/components/ui/toast/Toaster.vue';
+</script>

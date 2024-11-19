@@ -3,6 +3,7 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { baseUrl } from '~/constant/api';
 
 export const useAuthStore = defineStore('auth', () => {
   const router = useRouter();
@@ -11,21 +12,26 @@ export const useAuthStore = defineStore('auth', () => {
   const loading = ref(false);
   const error = ref<string | null>(null);
 
+  const tokenCookieName = "Authorization";
+
   const login = async (username: string, password: string) => {
     loading.value = true;
     error.value = null;
     try {
-      const response = await $fetch('http://localhost:3014/api/auth/login', {
+      const response = await $fetch(`${baseUrl}/auth/login`, {
         method: 'POST',
         body: { username, password },
       });
-      const { token: responseToken, user: responseUser } = response as { token: string; user: any };
+      const { token: responseToken } = response as {
+        token: string;
+      };
       token.value = responseToken;
-      user.value = responseUser;
-      router.push('/');
+      console.log('Login response:', response);
+
+      router.push('/admin');
     } catch (err) {
       console.error('Login error:', err);
-      error.value = 'Failed to login. Please check your credentials.';
+      error.value = (err as any).response?.data?.message;
     } finally {
       loading.value = false;
     }
@@ -35,11 +41,14 @@ export const useAuthStore = defineStore('auth', () => {
     loading.value = true;
     error.value = null;
     try {
-      const response = await $fetch('http://localhost:3014/api/auth/signup', {
+      const response = await $fetch(`${baseUrl}/auth/signup`, {
         method: 'POST',
         body: { username, password },
       });
-      const { token: responseToken, user: responseUser } = response as { token: string; user: any };
+      const { token: responseToken, user: responseUser } = response as {
+        token: string;
+        user: any;
+      };
       token.value = responseToken;
       user.value = responseUser;
       router.push('/');

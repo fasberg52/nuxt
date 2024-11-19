@@ -1,8 +1,10 @@
+<!-- layouts/admin.vue -->
 <template>
-  <Sidebar>
-    <NuxtPage />
-  </Sidebar>
+  <div>
+    <Sidebar> <NuxtPage /> </Sidebar>
+  </div>
 </template>
 
-<script setup>
-</script>
+<script setup></script>
+
+<style scoped></style>
