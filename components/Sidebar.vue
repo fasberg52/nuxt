@@ -13,7 +13,7 @@
           class="flex items-center gap-3 px-3 py-2 w-full text-gray-300 hover:bg-gray-800 rounded-md"
           :class="{ 'bg-gray-800 text-white': isActive(item.path) }"
         >
-          <EnvelopeOpenIcon class="w-4 h-4 mr-2" />
+          <component :is="icons[item.icon]" class="w-5 h-5 text-gray-400" />
           {{ item.name }}
         </NuxtLink>
       </nav>
@@ -27,12 +27,28 @@
 
 <script setup>
 import { useRoute } from 'vue-router';
+import {
+  LayoutDashboard,
+  Users,
+  ClipboardPen,
+  BookCopy,
+  AlignCenter,
+} from 'lucide-vue-next';
+
+const icons = {
+  LayoutDashboard,
+  Users,
+  ClipboardPen,
+  BookCopy,
+  AlignCenter,
+};
 
 const menuItems = [
-  { name: 'داشبورد', path: '/admin' },
-  { name: 'مدیریت کاربران', path: '/admin/users' },
-  { name: 'پروژه ها', path: '/admin/projects' },
-  { name: 'نوشته ها', path: '/admin/blogs' },
+  { name: 'داشبورد', path: '/admin', icon: 'LayoutDashboard' },
+  { name: 'مدیریت کاربران', path: '/admin/users', icon: 'Users' },
+  { name: 'پروژه ها', path: '/admin/projects', icon: 'ClipboardPen' },
+  { name: 'نوشته ها', path: '/admin/blogs', icon: 'BookCopy' },
+  { name: 'دسته بندی ها', path: '/admin/categories', icon: 'AlignCenter' },
 ];
 
 const route = useRoute();

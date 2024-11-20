@@ -7,12 +7,15 @@ export async function fetchData<T>(
 ): Promise<PaginationResponse<T>> {
   try {
     const queryString = new URLSearchParams(params).toString();
+    const url = `${baseUrl}/${endpoint}?${queryString}`;
+    console.log('Fetching data from:', url);
 
-    const response = await $fetch<PaginationResponse<T>>(
-      `${baseUrl}/${endpoint}?${queryString}`,
-    );
+    const response = await $fetch<PaginationResponse<T>>(url, {
+      method: 'GET',
+    });
 
     if (!response.success || !Array.isArray(response.data)) {
+      console.error('Invalid response format:', response);
       throw new Error('Invalid response format');
     }
 

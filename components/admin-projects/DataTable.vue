@@ -10,10 +10,11 @@ import {
 } from '@/components/ui/table';
 
 import { FlexRender, getCoreRowModel, useVueTable } from '@tanstack/vue-table';
+import type { IProject } from '~/interfaces/project.interface';
 
 const props = defineProps<{
-  columns: ColumnDef<TData, TValue>[];
-  data: TData[];
+  columns: ColumnDef<IProject, any>[];
+  data: IProject[];
 }>();
 
 const table = useVueTable({
@@ -29,13 +30,13 @@ const table = useVueTable({
 
 <template>
   <div class="border rounded-md">
-    <Table>
-      <TableHeader>
+    <Table class="text-stone-700">
+      <TableHeader >
         <TableRow
           v-for="headerGroup in table.getHeaderGroups()"
           :key="headerGroup.id"
         >
-          <TableHead v-for="header in headerGroup.headers" :key="header.id">
+          <TableHead v-for="header in headerGroup.headers" :key="header.id" class="text-right">
             <FlexRender
               v-if="!header.isPlaceholder"
               :render="header.column.columnDef.header"
@@ -50,6 +51,7 @@ const table = useVueTable({
             v-for="row in table.getRowModel().rows"
             :key="row.id"
             :data-state="row.getIsSelected() ? 'selected' : undefined"
+            class="hover:bg-gray-200"
           >
             <TableCell v-for="cell in row.getVisibleCells()" :key="cell.id">
               <FlexRender

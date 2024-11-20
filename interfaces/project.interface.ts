@@ -6,6 +6,6 @@ export interface IProject {
   images?: string[];
   tags?: string[];
   categories?: string[];
-  createdAt?: Date;
+  createdAt?: Date | string;
   updatedAt?: Date | null;
 }

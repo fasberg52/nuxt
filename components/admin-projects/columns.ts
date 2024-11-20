@@ -1,18 +1,20 @@
 import type { ColumnDef } from '@tanstack/vue-table';
+import moment from 'moment-jalaali';
 
 import type { IProject } from '~/interfaces/project.interface';
 
 export const columns: ColumnDef<IProject>[] = [
   {
-    accessorKey: 'id',
+    accessorKey: 'index',
     header: 'آیدی',
+    cell: ({ row }) => row.index + 1,
   },
   {
     accessorKey: 'title',
     header: 'عنوان',
   },
   {
-    accessorKey: 'description',
+    accessorKey: 'categories',
     header: 'دسته بندی',
   },
   {
