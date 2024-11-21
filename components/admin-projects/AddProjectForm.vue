@@ -20,12 +20,8 @@
         <FormItem>
           <Label for="description">توضیحات</Label>
           <FormControl>
-            <Textarea
-              v-model="form.description"
-              id="description"
-              placeholder="توضیحات پروژه"
-              required
-            />
+            <EditorMenuBar :editor="editor" />
+            <EditorContent :editor="editor" class="editor-content" />
           </FormControl>
         </FormItem>
       </FormField>
@@ -78,7 +74,9 @@
           <FormControl>
             <PersianDatepicker
               v-model="form.startDate"
+              type="datetime"
               placeholder="تاریخ شروع را انتخاب کنید"
+              simple
             />
           </FormControl>
         </FormItem>
@@ -90,9 +88,10 @@
           <FormControl>
             <PersianDatepicker
               v-model="form.endDate"
-              format="jYYYY/jMM/jDD HH:mm"
+              type="datetime"
               placeholder="تاریخ پایان را انتخاب کنید"
               input-class="input"
+              simple
             />
           </FormControl>
         </FormItem>
@@ -100,11 +99,28 @@
 
       <FormField name="status" v-auto-animate>
         <FormItem>
-          <Label for="status">وضعیت</Label>
+          <Label for="status" class="rtl:text-right">وضعیت</Label>
           <FormControl>
-            <Select v-model="form.status" id="status" required>
-              <SelectOption value="active">فعال</SelectOption>
-              <SelectOption value="inactive">غیرفعال</SelectOption>
+            <Select v-model="form.status" id="status" dir="rtl">
+              <SelectTrigger
+                class="w-[180px] rtl:flex-row-reverse rtl:text-right"
+              >
+                <SelectValue
+                  placeholder="انتخاب وضعیت"
+                  class="rtl:flex-row-reverse rtl:text-right"
+                />
+              </SelectTrigger>
+              <SelectContent class="rtl:text-right rtl:origin-top-right">
+                <SelectGroup>
+                  <SelectLabel class="rtl:text-right">وضعیت</SelectLabel>
+                  <SelectItem value="active" class="rtl:text-right"
+                    >فعال</SelectItem
+                  >
+                  <SelectItem value="inactive" class="rtl:text-right"
+                    >غیرفعال</SelectItem
+                  >
+                </SelectGroup>
+              </SelectContent>
             </Select>
           </FormControl>
         </FormItem>
@@ -112,7 +128,7 @@
 
       <FormField name="isActive" v-auto-animate>
         <FormItem>
-          <Label for="isActive">آیا فعال است؟</Label>
+          <Label for="isActive" class="pl-2">آیا فعال است؟</Label>
           <FormControl>
             <Checkbox v-model="form.isActive" id="isActive" />
           </FormControl>
@@ -147,6 +163,15 @@ import {
   FormLabel as Label,
   FormMessage,
 } from '@/components/ui/form';
+import { Editor, EditorContent } from '@tiptap/vue-3';
+import StarterKit from '@tiptap/starter-kit';
+import Link from '@tiptap/extension-link';
+import Image from '@tiptap/extension-image';
+import Table from '@tiptap/extension-table';
+import TableRow from '@tiptap/extension-table-row';
+import TableCell from '@tiptap/extension-table-cell';
+import TableHeader from '@tiptap/extension-table-header';
+import TextAlign from '@tiptap/extension-text-align';
 
 interface ProjectForm {
   title: string;
@@ -187,6 +212,37 @@ const tagsString = computed({
   },
 });
 
+const editor = useEditor({
+  extensions: [
+    StarterKit,
+    Link,
+    Image,
+    Table.configure({ resizable: true }),
+    TableRow,
+    TableCell,
+    TableHeader,
+    TextAlign.configure({
+      types: ['heading', 'paragraph'],
+    }),
+  ],
+  content: form.value.description,
+  onUpdate: ({ editor }) => {
+    form.value.description = editor.getHTML();
+  },
+});
+
+onMounted(() => {
+  if (!!unref(editor)) {
+    unref(editor).commands.setContent(
+      "<p>I'm running Tiptap with Vue.js. 🎉</p>",
+    );
+  }
+});
+
+onBeforeUnmount(() => {
+  unref(editor).destroy();
+});
+
 async function onSubmit() {
   try {
     const response = await fetchData('project', {
@@ -216,5 +272,17 @@ async function onSubmit() {
   margin-top: 0.5rem;
   border-radius: 4px;
   border: 1px solid #ccc;
+}
+
+.editor-content {
+  min-height: 150px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+}
+.editor-content:focus {
+  outline: none;
+  border-color: #3182ce;
+  box-shadow: 0 0 0 2px rgba(49, 130, 206, 0.5);
 }
 </style>

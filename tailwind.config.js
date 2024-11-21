@@ -1,26 +1,27 @@
-const animate = require("tailwindcss-animate");
+const animate = require("tailwindcss-animate")
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
   safelist: ["dark"],
   prefix: "",
-
+  
+  content: [
+    './pages/**/*.{ts,tsx,vue}',
+    './components/**/*.{ts,tsx,vue}',
+    './app/**/*.{ts,tsx,vue}',
+    './src/**/*.{ts,tsx,vue}',
+	],
+  
   theme: {
     container: {
       center: true,
       padding: "2rem",
       screens: {
-        mobile: "500px",
-        tablet: "768px",
-        laptop: "1024px",
         "2xl": "1400px",
       },
     },
     extend: {
-      boxShadow: {
-        custom: "0 10px 33px 15px rgba(36, 51, 153, 0.051)",
-      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -73,10 +74,10 @@ module.exports = {
         },
         "collapsible-down": {
           from: { height: 0 },
-          to: { height: "var(--radix-collapsible-content-height)" },
+          to: { height: 'var(--radix-collapsible-content-height)' },
         },
         "collapsible-up": {
-          from: { height: "var(--radix-collapsible-content-height)" },
+          from: { height: 'var(--radix-collapsible-content-height)' },
           to: { height: 0 },
         },
       },
@@ -86,10 +87,7 @@ module.exports = {
         "collapsible-down": "collapsible-down 0.2s ease-in-out",
         "collapsible-up": "collapsible-up 0.2s ease-in-out",
       },
-      fontFamily: {
-        iranyekan: ["Iranyekan", "sans-serif"],
-      },
     },
   },
   plugins: [animate],
-};
+}

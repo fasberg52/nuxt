@@ -17,7 +17,11 @@ export default defineNuxtConfig({
     '@nuxt/image-edge',
     '@nuxtjs/color-mode',
     '@pinia/nuxt',
+    'nuxt-tiptap-editor',
   ],
+  tiptap: {
+    prefix: 'Tiptap',
+  },
   colorMode: {
     preference: 'system',
     fallback: 'light',
