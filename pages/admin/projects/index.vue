@@ -7,7 +7,7 @@
         <Plus /> ایجاد پروژه</Button
       ></SheetTrigger
     >
-    <SheetContent class="md:w-[800px] sm:w-[800px] custom-width-sheet">
+    <SheetContent class="md:w-[1300px] max-w-lg sm:w-[1300px] max-w-lg custom-width-sheet bg-custom-background">
       <SheetHeader>
         <SheetTitle class="text-right">افزودن پروژه جدید</SheetTitle>
         <SheetDescription>
@@ -92,5 +92,8 @@ definePageMeta({
 <style>
 .bg-custom-button {
   background-color: var(--button-background);
+}
+.bg-custom-background {
+  background-color: var(--bg-background);
 }
 </style>

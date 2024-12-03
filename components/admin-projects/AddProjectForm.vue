@@ -20,8 +20,20 @@
         <FormItem>
           <Label for="description">توضیحات</Label>
           <FormControl>
-            <EditorMenuBar :editor="editor" />
-            <EditorContent :editor="editor" class="editor-content" />
+            <TiptapEditor
+              v-model="form.description"
+              :extensions="[
+                StarterKit,
+                Link,
+                Image,
+                Table,
+                TableRow,
+                TableCell,
+                TableHeader,
+                TextAlign,
+              ]"
+              :editor-props="{ autofocus: true }"
+            />
           </FormControl>
         </FormItem>
       </FormField>
@@ -212,36 +224,7 @@ const tagsString = computed({
   },
 });
 
-const editor = useEditor({
-  extensions: [
-    StarterKit,
-    Link,
-    Image,
-    Table.configure({ resizable: true }),
-    TableRow,
-    TableCell,
-    TableHeader,
-    TextAlign.configure({
-      types: ['heading', 'paragraph'],
-    }),
-  ],
-  content: form.value.description,
-  onUpdate: ({ editor }) => {
-    form.value.description = editor.getHTML();
-  },
-});
 
-onMounted(() => {
-  if (!!unref(editor)) {
-    unref(editor).commands.setContent(
-      "<p>I'm running Tiptap with Vue.js. 🎉</p>",
-    );
-  }
-});
-
-onBeforeUnmount(() => {
-  unref(editor).destroy();
-});
 
 async function onSubmit() {
   try {
