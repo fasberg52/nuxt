@@ -8,9 +8,11 @@ export default defineNuxtConfig({
       apiUrl: 'http://localhost:3014/api',
     },
   },
+
   typescript: {
     shim: false,
   },
+
   modules: [
     '@nuxtjs/tailwindcss',
     'shadcn-nuxt',
@@ -19,6 +21,16 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     'nuxt-tiptap-editor',
   ],
+  components: true,
+  shadcn: {
+    prefix: '',
+    /**
+     * Directory that the component lives in.
+     * @default "./components/ui"
+     */
+    componentDir: './components/ui',
+  },
+
   tiptap: {
     prefix: 'Tiptap',
   },
@@ -39,14 +51,6 @@ export default defineNuxtConfig({
   css: ['@/assets/css/tailwind.css', '@/assets/css/main.css'],
   pages: true,
 
-  shadcn: {
-    prefix: '',
-    /**
-     * Directory that the component lives in.
-     * @default "./components/ui"
-     */
-    componentDir: './components/ui',
-  },
   app: {
     pageTransition: { name: 'slide', mode: 'out-in' },
   },

@@ -31,12 +31,16 @@ const table = useVueTable({
 <template>
   <div class="border rounded-md">
     <Table class="text-stone-700">
-      <TableHeader >
+      <TableHeader>
         <TableRow
           v-for="headerGroup in table.getHeaderGroups()"
           :key="headerGroup.id"
         >
-          <TableHead v-for="header in headerGroup.headers" :key="header.id" class="text-right">
+          <TableHead
+            v-for="header in headerGroup.headers"
+            :key="header.id"
+            class="text-right"
+          >
             <FlexRender
               v-if="!header.isPlaceholder"
               :render="header.column.columnDef.header"
@@ -63,8 +67,17 @@ const table = useVueTable({
         </template>
         <template v-else>
           <TableRow>
-            <TableCell :colspan="columns.length" class="h-24 text-center">
-              No results.
+            <TableCell
+              :colspan="columns.length"
+              class="h-24 text-center center"
+            >
+              <NuxtImg
+                format="webp"
+                width="300"
+                height="300"
+                class="m-auto rounded-2xl"
+                src="/images/no-data.svg"
+              />
             </TableCell>
           </TableRow>
         </template>

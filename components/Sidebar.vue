@@ -2,7 +2,7 @@
   <div class="flex h-screen">
     <aside class="w-64 bg-gray-900 text-gray-100 flex flex-col">
       <div class="flex items-center px-4 py-3 border-b border-gray-700">
-        <NuxtImg format="webp" width="120" src="/images/logo.png" />
+        <NuxtImg format="webp" width="120" src="/images/Logo.png" />
       </div>
 
       <nav class="flex-1 px-4 py-4 space-y-2">

@@ -1,17 +1,11 @@
 <template>
   <div>
-    <form @submit.prevent="onSubmit" class="space-y-4">
+    <Form @submit.prevent="onSubmit" class="space-y-4">
       <FormField name="title">
         <FormItem v-auto-animate>
           <Label for="title">عنوان پروژه</Label>
           <FormControl>
-            <Input
-              v-model="form.title"
-              type="text"
-              id="title"
-              placeholder="عنوان پروژه"
-              required
-            />
+            <Input v-model="form.title" type="text" id="title" placeholder="عنوان پروژه" required />
           </FormControl>
         </FormItem>
       </FormField>
@@ -21,6 +15,7 @@
           <Label for="description">توضیحات</Label>
           <FormControl>
             <TiptapEditor
+              class="text-black"
               v-model="form.description"
               :extensions="[
                 StarterKit,
@@ -82,8 +77,8 @@
       </FormField>
       <FormField name="startDate">
         <FormItem>
-          <Label for="startDate">تاریخ شروع</Label>
-          <FormControl>
+          <Label for="startDate" class="text-black">تاریخ شروع</Label>
+          <FormControl class="text-black font-weight-regular">
             <PersianDatepicker
               v-model="form.startDate"
               type="datetime"
@@ -96,8 +91,8 @@
 
       <FormField name="endDate">
         <FormItem>
-          <Label for="endDate">تاریخ پایان</Label>
-          <FormControl>
+          <Label for="endDate" class="text-black">تاریخ پایان</Label>
+          <FormControl class="text-black">
             <PersianDatepicker
               v-model="form.endDate"
               type="datetime"
@@ -114,9 +109,7 @@
           <Label for="status" class="rtl:text-right">وضعیت</Label>
           <FormControl>
             <Select v-model="form.status" id="status" dir="rtl">
-              <SelectTrigger
-                class="w-[180px] rtl:flex-row-reverse rtl:text-right"
-              >
+              <SelectTrigger class="w-[180px] rtl:flex-row-reverse rtl:text-right">
                 <SelectValue
                   placeholder="انتخاب وضعیت"
                   class="rtl:flex-row-reverse rtl:text-right"
@@ -125,12 +118,8 @@
               <SelectContent class="rtl:text-right rtl:origin-top-right">
                 <SelectGroup>
                   <SelectLabel class="rtl:text-right">وضعیت</SelectLabel>
-                  <SelectItem value="active" class="rtl:text-right"
-                    >فعال</SelectItem
-                  >
-                  <SelectItem value="inactive" class="rtl:text-right"
-                    >غیرفعال</SelectItem
-                  >
+                  <SelectItem value="active" class="rtl:text-right">فعال</SelectItem>
+                  <SelectItem value="inactive" class="rtl:text-right">غیرفعال</SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>
@@ -148,16 +137,15 @@
       </FormField>
 
       <div class="flex justify-end space-x-2">
-        <Button
-          type="submit"
-          class="bg-custom-button text-white hover:bg-sky-800"
-        >
-          ثبت پروژه
+        <SheetClose as-child>
+          <Button type="submit" class="bg-custom-button text-white hover:bg-sky-800">
+            ثبت پروژه
 
-          <Plus class="w-[18px] pr-1" />
-        </Button>
+            <Plus class="w-[18px] pr-1" />
+          </Button>
+        </SheetClose>
       </div>
-    </form>
+    </Form>
   </div>
 </template>
 
@@ -224,16 +212,17 @@ const tagsString = computed({
   },
 });
 
-
-
 async function onSubmit() {
   try {
-    const response = await fetchData('project', {
+    const response: any = await useNuxtApp().$api('project', {
       method: 'POST',
       body: JSON.stringify(form.value),
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
+
     if (response.success) {
-      // Handle success, e.g., reset form, show success message
       console.log('Project added successfully');
     } else {
       console.error('Failed to add project:', response);

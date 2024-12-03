@@ -57,19 +57,19 @@
         <h4 class="text-white font-bold text-lg">شبکه های اجتماعی</h4>
         <ul class="mt-4">
           <li class="text-white text-sm font-regular mb-3 flex items-center">
-            <span class="ml-2"><img src="/images/Group-297.svg" alt="" /></span>
+            <span class="ml-2"><img src="../public/images/Group-297.svg" alt="" /></span>
             <a href="#">لینکدین</a>
           </li>
           <li class="text-white text-sm font-regular mb-3 flex items-center">
-            <span class="ml-2"><img src="/images/Group-298.svg" alt="" /></span>
+            <span class="ml-2"><img src="../public/images/Group-298.svg" alt="" /></span>
             <a href="#">اینستاگرام</a>
           </li>
           <li class="text-white text-sm font-regular mb-3 flex items-center">
-            <span class="ml-2"><img src="/images/vector.svg" alt="" /></span>
+            <span class="ml-2"><img src="../public/images/vector.svg" alt="" /></span>
             <a href="#">تلگرام</a>
           </li>
           <li class="text-white text-sm font-regular mb-3 flex items-center">
-            <span class="ml-2"><img src="/images/Group-298.svg" alt="" /></span>
+            <span class="ml-2"><img src="../public/images/Group-298.svg" alt="" /></span>
             <a href="#">واتس اپ</a>
           </li>
         </ul>

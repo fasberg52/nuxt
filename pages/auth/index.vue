@@ -2,13 +2,9 @@
   <div class="flex items-center justify-center min-h-screen bg-gray-100">
     <form
       class="w-full max-w-[580px] space-y-6 bg-white p-6 shadow-lg rounded-lg"
-      @submit="onSubmit"
+      @submit.prevent="signIn"
     >
-      <FormField
-        name="username"
-        :validate-on-blur="!isFieldDirty"
-        v-slot="{ componentField }"
-      >
+      <FormField name="username" :validate-on-blur="!isFieldDirty" v-slot="{ componentField }">
         <FormItem v-auto-animate>
           <FormLabel>نام کاربری</FormLabel>
           <FormControl>
@@ -16,17 +12,14 @@
               type="text"
               placeholder="ایمیل، موبایل و..."
               v-bind="componentField"
+              v-model="username"
             />
           </FormControl>
           <FormMessage />
         </FormItem>
       </FormField>
 
-      <FormField
-        name="password"
-        :validate-on-blur="!isFieldDirty"
-        v-slot="{ componentField }"
-      >
+      <FormField name="password" :validate-on-blur="!isFieldDirty" v-slot="{ componentField }">
         <FormItem v-auto-animate>
           <FormLabel>رمز عبور</FormLabel>
           <FormControl>
@@ -34,6 +27,7 @@
               type="password"
               placeholder="••••••••"
               v-bind="componentField"
+              v-model="password"
             />
           </FormControl>
           <FormMessage />
@@ -58,7 +52,7 @@ body {
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useAuthStore } from '~/stores/auth.store';
+import { useAccountStore } from '~/stores/account.store';
 import { Button } from '@/components/ui/button';
 import {
   FormControl,
@@ -69,15 +63,15 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { ToastAction } from '@/components/ui/toast';
+import { ToastAction, useToast } from '@/components/ui/toast';
 
 import { vAutoAnimate } from '@formkit/auto-animate/vue';
 import { toTypedSchema } from '@vee-validate/zod';
 import { useForm } from 'vee-validate';
-import { toast } from '@/components/ui/toast';
 
 import * as z from 'zod';
-
+import { Login } from '~/services/login.service';
+import { toast } from '@/components/ui/toast';
 definePageMeta({
   layout: 'auth',
 });
@@ -96,33 +90,74 @@ const { isFieldDirty, handleSubmit } = useForm({
   validationSchema: formSchema,
 });
 
-const authStore = useAuthStore();
+const accountStore = useAccountStore();
+const router = useRouter();
 
-const onSubmit = handleSubmit(async (values) => {
+const username = ref('');
+const password = ref('');
+const loading = ref(false);
+
+const signIn = async () => {
+  loading.value = true;
+
   try {
-    await authStore.login(values.username, values.password);
-    console.log('Logged in!');
-    toast({
-      title: 'Success',
-      description: h(
-        'pre',
-        { class: 'mt-2 w-[340px] rounded-md bg-slate-950 p-4' },
-        h('code', { class: 'text-white' }, JSON.stringify(values, null, 2)),
-      ),
-      duration: 3000,
-      variant: 'default',
-    });
+    const result = await Login(username.value, password.value);
+    loading.value = false;
 
-    console.log('Logged in! Toast should be displayed');
+    if (result.isSuccess && result.data) {
+      const { token, roles } = result.data;
+      console.log(`roles >> ${roles}`);
+      let rolesArray: number[] = [];
+
+      if (roles) {
+        if (Array.isArray(roles)) {
+          rolesArray = roles;
+        } else if (typeof roles === 'number') {
+          rolesArray = [roles];
+        } else {
+          rolesArray = [];
+        }
+      }
+      if (rolesArray.includes(0)) {
+        accountStore.setAuthToken(token);
+
+        toast({
+          title: 'ورود موفق',
+          description: 'شما با موفقیت وارد شدید!',
+          duration: 3000,
+          variant: 'default',
+        });
+
+        setTimeout(() => {
+          router.push('/admin');
+        }, 200);
+      } else {
+        toast({
+          title: 'خطا',
+          description: 'شما ادمین نیستید.',
+          duration: 3000,
+          variant: 'destructive',
+        });
+      }
+    } else {
+      toast({
+        title: 'خطا',
+        description: 'ورود ناموفق. لطفا مجددا تلاش کنید.',
+        duration: 3000,
+        variant: 'destructive',
+      });
+    }
   } catch (err) {
-    const errorMessage =
-      (err as any).response?.data?.message ||
-      'Invalid credentials. Please try again.';
+    loading.value = false;
 
     toast({
-      title: 'Error',
-      description: errorMessage,
+      title: 'خطا',
+      description: 'خطایی رخ داده است. لطفا دوباره تلاش کنید.',
+      duration: 3000,
+      variant: 'destructive',
     });
+
+    console.error('Error during sign-in:', err);
   }
-});
+};
 </script>
