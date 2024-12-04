@@ -72,6 +72,7 @@ import { useForm } from 'vee-validate';
 import * as z from 'zod';
 import { Login } from '~/services/login.service';
 import { toast } from '@/components/ui/toast';
+import type { UserRoleEnum } from '~/enums/auth.enum';
 definePageMeta({
   layout: 'auth',
 });
@@ -106,18 +107,8 @@ const signIn = async () => {
 
     if (result.isSuccess && result.data) {
       const { token, roles } = result.data;
-      console.log(`roles >> ${roles}`);
-      let rolesArray: number[] = [];
 
-      if (roles) {
-        if (Array.isArray(roles)) {
-          rolesArray = roles;
-        } else if (typeof roles === 'number') {
-          rolesArray = [roles];
-        } else {
-          rolesArray = [];
-        }
-      }
+      const rolesArray: UserRoleEnum[] = Array.isArray(roles) ? roles : [];
       if (rolesArray.includes(0)) {
         accountStore.setAuthToken(token);
 

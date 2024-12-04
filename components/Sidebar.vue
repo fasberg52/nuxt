@@ -7,11 +7,12 @@
 
       <nav class="flex-1 px-4 py-4 space-y-2">
         <NuxtLink
-          v-for="item in menuItems"
-          :key="item.name"
+          v-for="(item, index) in menuItems"
+          :key="index"
           :to="item.path"
           class="flex items-center gap-3 px-3 py-2 w-full text-gray-300 hover:bg-gray-800 rounded-md"
           :class="{ 'bg-gray-800 text-white': isActive(item.path) }"
+          @click.prevent="item.name === 'خروج' ? logoutUser() : null"
         >
           <component :is="icons[item.icon]" class="w-5 h-5 text-gray-400" />
           {{ item.name }}
@@ -26,13 +27,15 @@
 </template>
 
 <script setup>
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
+import { useAccountStore } from '~/stores/account.store';
 import {
   LayoutDashboard,
   Users,
   ClipboardPen,
   BookCopy,
   AlignCenter,
+  LogOut,
 } from 'lucide-vue-next';
 
 const icons = {
@@ -41,6 +44,7 @@ const icons = {
   ClipboardPen,
   BookCopy,
   AlignCenter,
+  LogOut,
 };
 
 const menuItems = [
@@ -49,11 +53,17 @@ const menuItems = [
   { name: 'پروژه ها', path: '/admin/projects', icon: 'ClipboardPen' },
   { name: 'نوشته ها', path: '/admin/blogs', icon: 'BookCopy' },
   { name: 'دسته بندی ها', path: '/admin/categories', icon: 'AlignCenter' },
+  { name: 'خروج', path: '/auth', icon: 'LogOut' },
 ];
 
 const route = useRoute();
+const accountStore = useAccountStore();
 
 const isActive = (path) => route.path === path;
+
+const logoutUser = () => {
+  accountStore.logout();
+};
 </script>
 
 <style scoped></style>

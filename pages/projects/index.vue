@@ -99,7 +99,7 @@ const itemsPerPage = 8;
 const tabs = ['نمونه کارها', 'قالب آماده', 'طرح آماده'];
 
 onMounted(fetchProjects);
-
+ 
 const filteredProjects = ref<IProject[]>([]);
 
 watch(
