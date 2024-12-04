@@ -137,13 +137,11 @@
       </FormField>
 
       <div class="flex justify-end space-x-2">
-        <SheetClose as-child>
-          <Button type="submit" class="bg-custom-button text-white hover:bg-sky-800">
-            ثبت پروژه
+        <Button type="submit" class="bg-custom-button text-white hover:bg-sky-800">
+          ثبت پروژه
 
-            <Plus class="w-[18px] pr-1" />
-          </Button>
-        </SheetClose>
+          <Plus class="w-[18px] pr-1" />
+        </Button>
       </div>
     </Form>
   </div>
